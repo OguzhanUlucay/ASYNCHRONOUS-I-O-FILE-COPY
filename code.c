@@ -5,15 +5,25 @@
 #include <string.h>
 #include <aio.h>
 #include <errno.h>
+#include <pthread.h>
 
-int main(void)
+void* asynch_copy(){
+
+
+
+}
+
+
+int main(int argc, char* argv[])
 {
 
   struct aiocb aio;
 
-  int pord_fd = 0, err, ret;
-  int length  = 200000//inputtan gelmeli
+  int pord_fd = 0, thread_count = 0;
+  int length  = 200000;//inputtan gelmeli
   char *data  = (char*) malloc(length);//buffer. Ismi buffer olabilir
+
+  pthread_t threads[thread_count];
 
   port_fd = open("data.dat", O_RDONLY)//O_RDONLY gerek varmi?
   // data.dat inputtan gelicek
@@ -30,6 +40,14 @@ int main(void)
   aio.aio_buf    = data;
   aio.aio_nbytes = length;
 
+  int i;
+  for (i = 0; i < thread_count; i++) {
+    pthread_create(threads[i], NULL, asynch_copy, NULL ){
+
+    }
+  }
+
+//------------------------------------------------///
   aio_read(&aio);//why the fuck is this.
 
   printf("read process has started\n");
@@ -49,7 +67,5 @@ int main(void)
   printf("ret value %d\n",ret );// bu degerle napiyoruz ? duzgun output vermek lazim
   close(port_fd);
   printf("Reading is finished\n" );
-  return EXIT_SUCCESS:
-
-
+  return EXIT_SUCCESS;
 }
